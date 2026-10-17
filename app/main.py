@@ -1,7 +1,12 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import joblib
+import pandas as pd
 
-app = FastAPI()
+app = FastAPI(title="Lobo Projection API")
+
+# 加载刚才训练好的真实模型
+model = joblib.load('model.pkl')
 
 class PredictionInput(BaseModel):
     distance_km: float
@@ -15,6 +20,10 @@ def read_root():
 
 @app.post("/api/predict")
 def predict_eta(data: PredictionInput):
-    # 这里现在是假模型，直接返回 20.5 分钟
-    # 等队友把真的 model.pkl 给你，你再换掉
-    return {"predicted_eta_min": 20.5}
+    # 把用户传来的数据变成 Pandas 表格
+    input_df = pd.DataFrame([data.model_dump()])
+    
+    # 让真实模型进行预测
+    prediction = model.predict(input_df)[0]
+    
+    return {"predicted_eta_min": round(float(prediction), 1)}
