@@ -20,6 +20,18 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+      
+
+      # 这是新加的代码，用于在云端生成模型 ↓
+      - name: Generate data and train model
+        run: |
+          python make_data.py
+          python train.py
+      # 这是新加的代码   ↑
+
+      - name: Run tests
+        run: python -m pytest tests/
+
 
       - name: Run tests
         run: python -m pytest tests/
