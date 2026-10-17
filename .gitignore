@@ -1,0 +1,19 @@
+# 忽略虚拟环境（太大了，绝对不能传）
+venv/
+__pycache__/
+*.pyc
+
+# 忽略本地实验记录数据库
+mlruns/
+
+# 忽略本地的模型文件（后面我们用DVC或者别的方式管理，或者直接不传）
+model.pkl
+*.pkl
+
+# 忽略本地生成的数据表（这个由徐嘉悦用DVC去管）
+robotaxi_data.csv
+
+# 忽略 Mac/Windows 的系统垃圾文件
+.DS_Store
+Thumbs.db
+mlflow.db

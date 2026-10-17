@@ -1,0 +1,22 @@
+name: Staging CD
+
+on:
+  push:
+    branches: [ "staging" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Staging .env file
+        run: |
+          echo "API_URL=${{ secrets.STAGING_API_URL }}" >> .env
+          echo "DB_URL=${{ secrets.STAGING_DB_URL }}" >> .env
+          # 根据实际需要添加更多变量
+
+      - name: Build Staging Docker Image
+        run: |
+          docker build -t robotaxi-eta-staging:${{ github.sha }} .

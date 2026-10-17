@@ -1,0 +1,5 @@
+outs:
+- md5: 978aecd7f906afaccf44c2e7b489213b
+  size: 2371
+  hash: md5
+  path: robotaxi_data.csv
