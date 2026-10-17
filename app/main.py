@@ -1,3 +1,4 @@
+from pydantic import BaseModel, Field  # 把 Field 加进来
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
@@ -9,7 +10,8 @@ app = FastAPI(title="Lobo Projection API")
 model = joblib.load('model.pkl')
 
 class PredictionInput(BaseModel):
-    distance_km: float
+    # gt=0 的意思就是 greater than 0（必须大于0）
+    distance_km: float = Field(gt=0, description="距离必须大于0")
     traffic_index: int
     weather: int
     is_peak: int
