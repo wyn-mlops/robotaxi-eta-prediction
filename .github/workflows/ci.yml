@@ -22,7 +22,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest tests/
+        run: python -m pytest tests/
 
       - name: Test Docker build
         run: docker build -t lobo-projection:test .
